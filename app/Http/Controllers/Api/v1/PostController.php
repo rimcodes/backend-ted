@@ -15,12 +15,13 @@ class PostController extends Controller
     /**
      * Return the posts.
      */
-    public function index(Request $request): ResourceCollection
+    public function index(Request $request)
     {
-        return PostResource::collection(
-            Post::search($request->input('q'))->withCount('comments')->latest()->paginate($request->input('limit', 20))
-        );
-
+//         : ResourceCollection
+//         return PostResource::collection(
+//             Post::search($request->input('q'))->withCount('comments')->latest()->paginate($request->input('limit', 20))
+//         );
+            return Post::all();
     }
 
     public function count()
