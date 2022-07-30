@@ -15,9 +15,9 @@ class PostController extends Controller
     /**
      * Return the posts.
      */
-    public function index(Request $request)
+    public function index(Request $request): ResourceCollection
     {
-        : ResourceCollection
+        
         return PostResource::collection(
             Post::search($request->input('q'))->withCount('comments')->latest()->paginate($request->input('limit', 20))
         );
