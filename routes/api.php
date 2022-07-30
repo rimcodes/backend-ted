@@ -30,7 +30,6 @@ Route::middleware(['cors'])->group(function () {
 
     Route::get('/admin/users', [UserController::class, 'index']);
 
-    Route::post('/admin/register', [UserController::class, 'store']);
     Route::post('/admin/login', [UserController::class, 'login']);
 
     Route::apiResource('posts', PostController::class)->only(['index', 'show']);
@@ -62,6 +61,7 @@ Route::middleware(['cors'])->group(function () {
         Route::get('students/read/messages', [MessageController::class, 'read'] );
         Route::post('students/read/{message}', [MessageController::class, 'setread'] );
 
+        Route::post('/admin/register', [UserController::class, 'store']);
         Route::post('/admin/logout', [UserController::class, 'logout']);
 
     });
