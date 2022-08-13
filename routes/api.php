@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\LessonController;
 use App\Http\Controllers\Api\v1\CourseController;
 use App\Http\Controllers\Api\v1\Admin\UserController;
+use App\Http\Controllers\Api\v1\ExampleController;
 use App\Http\Controllers\Api\v1\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['cors'])->group(function () {
 
     Route::get('/admin/users', [UserController::class, 'index']);
-
     Route::post('/admin/login', [UserController::class, 'login']);
 
     Route::apiResource('posts', PostController::class)->only(['index', 'show']);
@@ -40,6 +40,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('categories/resource/count', [CategoryController::class, 'count']);
 
     Route::apiResource('lessons', LessonController::class)->only(['index', 'show']);
+    Route::get('lessons/{lesson}/examples', [LessonController::class, 'examples'] );
     Route::get('lessons/resource/count', [LessonController::class, 'count']);
 
     Route::apiResource('courses', CourseController::class)->only(['index', 'show']);
@@ -47,6 +48,8 @@ Route::middleware(['cors'])->group(function () {
     Route::get('courses/resource/count', [CourseController::class, 'count']);
 
     Route::apiResource('students/messages', MessageController::class)->only(['store']);
+
+    Route::apiResource('examples', ExampleController::class);
 
     // Protected routes
     Route::group(['middleware' => ['auth:sanctum']], function () {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LessonsRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\Lesson as LessonResource;
+use App\Models\Example;
 use App\Models\Lesson;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -46,7 +47,6 @@ class LessonController extends Controller
     public function update(LessonsRequest $request, Lesson $lesson): LessonResource
     {
         // $this->authorize('update', $lesson);
-
         $lesson->update($request->only(['title', 'content', 'posted_at', 'author_id', 'course']));
 
         return new LessonResource($lesson);
@@ -58,12 +58,9 @@ class LessonController extends Controller
     public function store(LessonsRequest $request): LessonResource
     {
         // $this->authorize('store', Lesson::class);
-
-
         return new LessonResource(
             Lesson::create($request->only(['title', 'content', 'posted_at', 'author_id', 'course', 'slug']))
         );
-
     }
 
     /**
@@ -76,5 +73,14 @@ class LessonController extends Controller
         $lesson->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * return all lesson example
+     */
+    public function examples(Lesson $lesson)
+    {
+        $examples = $lesson->examples()->get();
+        return $examples;
     }
 }

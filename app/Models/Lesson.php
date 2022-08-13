@@ -136,6 +136,14 @@ class Lesson extends Model
     }
 
     /**
+     * Return the post's comments
+     */
+    public function examples(): HasMany
+    {
+        return $this->hasMany(Example::class);
+    }
+
+    /**
      * return the excerpt of the post content
      */
     public function excerpt(int $length = 50): string
