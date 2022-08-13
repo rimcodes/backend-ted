@@ -140,7 +140,7 @@ class Lesson extends Model
      */
     public function examples(): HasMany
     {
-        return $this->hasMany(Example::class);
+        return $this->hasMany(Example::class, 'lesson');
     }
 
     /**

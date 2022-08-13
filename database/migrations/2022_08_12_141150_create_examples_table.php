@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title');
             $table->unsignedInteger('lesson')->default(0);
-            $table->foreign('lesson')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('lesson')->references('id')->on('lessons')->onDelete('cascade');
             $table->text('content');
             $table->timestamps();
         });
