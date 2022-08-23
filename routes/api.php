@@ -41,6 +41,7 @@ Route::middleware(['cors'])->group(function () {
 
     Route::apiResource('lessons', LessonController::class)->only(['index', 'show']);
     Route::get('lessons/{lesson}/examples', [LessonController::class, 'examples'] );
+    Route::post('lessons/upload', [LessonController::class, 'uploadImage'] );
     Route::get('lessons/resource/count', [LessonController::class, 'count']);
 
     Route::apiResource('courses', CourseController::class)->only(['index', 'show']);

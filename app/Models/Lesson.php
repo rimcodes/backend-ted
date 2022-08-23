@@ -23,6 +23,7 @@ class Lesson extends Model
         'author_id',
         'title',
         'content',
+        'data',
         'course',
         'posted_at',
         'slug',

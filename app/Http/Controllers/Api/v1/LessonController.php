@@ -9,6 +9,7 @@ use App\Http\Resources\Lesson as LessonResource;
 use App\Models\Example;
 use App\Models\Lesson;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\URL;
 
 class LessonController extends Controller
 {
@@ -26,10 +27,38 @@ class LessonController extends Controller
             Lesson::search($request->input('q'))->withCount('comments')->latest()->paginate($request->input('limit', 20))
         );
     }
-
+    /**
+     * return the count
+     */
     public function count()
     {
         return Lesson::count();
+    }
+
+    /**
+     * upload image
+     */
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        $originalName = $request->file('image')->getClientOriginalName();
+        $imageName = $originalName . time() . '-' . '.'.  $request->image->extension();
+
+        $request->image->move(public_path('uploads'), $imageName);
+        $url = env('APP_URL') . 'uploads/' . $imageName;
+
+        $response = [
+            "success" => 1,
+            "file" => [
+                "url" => $url
+            ]
+        ];
+
+        return response($response);
+
     }
 
     /**
