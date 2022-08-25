@@ -9,6 +9,7 @@ use App\Http\Resources\Lesson as LessonResource;
 use App\Models\Example;
 use App\Models\Lesson;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class LessonController extends Controller
@@ -47,8 +48,10 @@ class LessonController extends Controller
         $originalName = $request->file('image')->getClientOriginalName();
         $imageName = $originalName . time() . '-' . '.'.  $request->image->extension();
 
-        $request->image->move(public_path('uploads'), $imageName);
-        $url = env('APP_URL') . 'uploads/' . $imageName;
+        // $request->image->move(public_path('uploads'), $imageName);
+        // $url = env('APP_URL') . 'uploads/' . $imageName;
+        $path = $request->file('image')->store('images', 's3');
+        $url = env('AWS_URL') . $path;
 
         $response = [
             "success" => 1,
