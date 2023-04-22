@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::domain('admin.' . env('APP_URL'))->group(function () {
+//     Route::get('/', function () {
+//         return view('home');
+//     });
+
+// });
 Route::get('/', function () {
     return view('home');
 });
+
