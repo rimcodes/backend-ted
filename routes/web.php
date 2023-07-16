@@ -20,12 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 // });
 
-Route::domain('rcadmin.' . env('APP_URL'))->group(function () {
-    Route::get('', function () {
-        return view('admin.admin');
-    });
-});
-
 Route::get('/', function () {
     return view('home');
+});
+
+Route::get('/rcadmin', function () {
+    return view('rcadmin');
 });
